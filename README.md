@@ -4,7 +4,7 @@
 
 A Codex skill for French STEM lecture notes: Chinese translation on the left, original French PDF on the right, at the original scale. Translation is performed by the agent; Python scripts handle extraction, layout, rendering and verification.
 
-![原创示例：中文在左、法语原文在右](docs/demo/preview.svg)
+![原创示例：中文在左、法语原文在右](docs/demo/preview.svg?v=2)
 
 [查看对照 PDF](docs/demo/dual.pdf) · [查看原创法语示例](docs/demo/source.pdf) · [技能入口](SKILL.md) · [清单格式](references/manifest-schema.md)
 
