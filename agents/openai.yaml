@@ -1,0 +1,13 @@
+interface:
+  display_name: "中法理工讲义双栏翻译"
+  short_description: "快速制作左中文、右法语原版的理工讲义 PDF，保留公式图表与版式"
+  default_prompt: "Use $translate-french-stem-pdf 翻译这些法语理工讲义，制作左中文、右原文的对照 PDF，保留公式图表，采用重点检查与局部修复流程。"
+  icon_small: "assets/icon.svg"
+  icon_large: "assets/icon.svg"
+policy:
+  products:
+  - "chatgpt"
+  - "codex"
+  - "api"
+  - "atlas"
+  allow_implicit_invocation: true
