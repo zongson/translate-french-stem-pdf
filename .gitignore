@@ -6,3 +6,4 @@ examples/output/
 docs/demo/*.json
 .DS_Store
 Thumbs.db
+docs/demo/preview.png
