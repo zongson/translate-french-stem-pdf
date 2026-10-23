@@ -2,15 +2,26 @@
 
 **把法语理工讲义制作成「左中文、右法语原版」的对照 PDF，保留公式、图表、版式与练习留白。**
 
-A Codex skill for French STEM lecture notes: Chinese translation on the left, original French PDF on the right, at the original scale. Translation is performed by the agent; Python scripts handle extraction, layout, rendering and verification.
+A Codex skill primarily for students at Sino-French joint colleges and institutes in China. Turn French STEM course PDFs into Chinese-left/French-right reading copies, preserving the original scale, equations and diagrams. The agent can also translate STEM academic articles between French and Chinese; Python scripts handle PDF extraction, layout and verification.
 
-![原创示例：中文在左、法语原文在右](https://github.com/zongson/translate-french-stem-pdf/raw/bfee2565924fbf1b476f8bfd3ca696486eba831e/docs/demo/preview.svg)
+**主要面向国内中法合办学院的学生**，用于法语授课课程的讲义翻译、课前预习、课后复习与专业术语对照学习；也可用于 STEM 学术文章的中法互译。
 
-[查看对照 PDF](docs/demo/dual.pdf) · [查看原创法语示例](docs/demo/source.pdf) · [技能入口](SKILL.md) · [清单格式](references/manifest-schema.md)
+![实际使用效果：《分子轨道》讲义第 8 页，中文在左、法语原文在右](docs/examples/orbitales-moleculaires-page-08.png)
+
+*实际案例：直接截取已完成的《分子轨道》（Orbitales moléculaires）中法对照讲义第 8 页，展示轨道图、公式、图注和正文的保留效果。*
+
+<details>
+<summary>查看更多实际效果：第 15 页的能级图、正文与表格</summary>
+
+![实际使用效果：《分子轨道》讲义第 15 页](docs/examples/orbitales-moleculaires-page-15.png)
+
+</details>
+
+[查看高清截图](docs/examples/orbitales-moleculaires-page-08.png) · [技能入口](SKILL.md) · [清单格式](references/manifest-schema.md) · [可复现的原创演示](#快速复现示例)
 
 ## 适用范围与具体用途
 
-面向需要结合原文学习专业内容的中文读者，也适合整理课程资料和教师备课。输入以**法语、带可提取文字层的理工科 PDF** 为主，输出以保持原稿结构的中法对照讲义为主。
+核心用户是**国内中法合办学院的学生**，尤其是使用法语讲义学习物理、化学、数学、力学与工程课程的学生。也适合相关课程教师、需要阅读法语 STEM 文献的研究生和研究人员。输入以**法语、带可提取文字层的理工科 PDF** 为主，默认输出保持原稿结构的中法对照讲义。
 
 | 材料 / 场景 | 可以完成的工作 | 需要注意的条件 |
 |---|---|---|
@@ -18,10 +29,11 @@ A Codex skill for French STEM lecture notes: Chinese translation on the left, or
 | 量子化学、原子结构等讲义 | 统一波函数、轨道、屏蔽等术语，保留上下标、希腊字母、能级图 | 优先保留源公式，避免从损坏文字层重建 |
 | 数学与一般工程类课程 PDF | 翻译定理说明、条件、证明中的自然语言、表格文字 | 密集矩阵、复杂公式和多栏版面需要局部调整 |
 | 习题单、课堂讲义和复习资料 | 翻译题干、表头与注释，保留题号、空白线和待填项目 | 默认不解题、不补答案 |
+| STEM 学术文章的中法互译 | 法语论文法译中，或中文 STEM 学术内容中译法；翻译摘要、方法、结果、讨论及图表说明 | 保留公式、符号、单位、数据、参考文献与引用编号；不改写研究结论 |
 | 一次处理多份讲义 | 每份源文件分别生成对照 PDF，重复标签可复用译文 | 每份文件保留独立清单，避免混淆坐标和术语 |
 | 含图片标签或少量扫描页的 PDF | 在可靠识别标签后用局部覆盖完成翻译 | 脚本不自带 OCR；扫描页需要另行识别和更充分的目视检查 |
 
-不适合直接套用的场景：没有 PDF 交付要求的普通段落翻译、小说式自由重排、要求完全可编辑的 Word/PPT、需要自动解题的作业，以及希望对任意扫描件实现无人检查的一键翻译。其他源语言需要修改翻译规范和识别逻辑，不属于当前默认能力。
+不适合直接套用的场景：没有 PDF 交付要求的普通段落翻译、小说式自由重排、要求完全可编辑的 Word/PPT、需要自动解题的作业，以及希望对任意扫描件实现无人检查的一键翻译。中法之外的其他语言需要修改翻译规范和识别逻辑，不属于当前默认能力。
 
 ## 最终成果是什么样的
 
@@ -32,7 +44,7 @@ A Codex skill for French STEM lecture notes: Chinese translation on the left, or
 - **可搜索中文**：中文字体和使用到的数学字体嵌入 PDF；输出包含可检索中文，而非只有一张译文图片。
 - **便于继续修订**：翻译清单记录译文及定位信息，后续可以只调整某个文本块或某一页。
 
-上方的流体静力学示例由本仓库自行编写，包含标题、解释文字、带下标的公式、示意图标签和练习留白。示例展示的是排版产物，不是自动求解结果。仓库不包含实际课程讲义原件或旧案例全文。
+上方截图来自实际使用的《分子轨道》中法对照 PDF，第 8 页展示轨道图与公式，第 15 页展示能级图与表格；两张图片均由原 PDF 页面直接渲染，没有重新编排内容。仓库展示这些页面截图，未上传该讲义全文。`docs/demo/` 中另保留可复现的原创流体静力学演示，与实际讲义截图区分。
 
 ## 已有案例与验证结果
 
@@ -86,6 +98,12 @@ $translate-french-stem-pdf 翻译这份法语理工讲义，生成左中文、�
 $translate-french-stem-pdf 翻译这些流体力学讲义，masse volumique 统一译为“密度”。
 请重点检查公式旁的说明文字；扫描页采用完整检查。
 ```
+
+### STEM 学术文章的中法互译
+
+除课程讲义外，也可用于法语 STEM 学术文章的中文阅读，以及中文 STEM 学术内容的法语表达。可以翻译整篇文章或指定章节，统一专业术语，保留公式、单位、实验数据、图表编号和参考文献对应关系；按原文表达论证强度，不自行补充结论。
+
+请在任务中明确“法译中”或“中译法”、学科领域及术语偏好。**中法互译由代理完成；当前 PDF 脚本默认采用法语源稿配中文译文的双栏布局。** 中文源稿生成法语对照 PDF 时，需要按目标语言调整字体与排版配置；上述讲义案例不代表已验证所有论文版式或两个翻译方向。
 
 该 skill 是代理工作流与本地 PDF 工具的组合。**脚本本身不调用翻译 API，也不会自动生成译文**；语义翻译、术语选择和复杂区域定位由代理完成。使用 Codex 时相应模型服务的可用性与用量规则仍由宿主决定。
 
@@ -168,5 +186,6 @@ scripts/verify_dual_pdf.py       程序检查和预览缓存
 scripts/dual_common.py           字体、清单与预览共用逻辑
 references/                     清单规范及翻译排版标准
 examples/build_demo.py           原创示例生成与可运行检查
-docs/demo/                      已生成的原创 PDF 与效果图
+docs/examples/                  《分子轨道》实际讲义页面截图
+docs/demo/                      可复现的原创演示 PDF 与效果图
 ```
